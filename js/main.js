@@ -2,6 +2,8 @@ window.addEventListener(
 	'DOMContentLoaded',
 	function (e) {
 		var slide = document.getElementById('slide');
+
+		
 		var fadeComplete = function (e) {
 			//this function adds the elment located in arr[0] to the end of the array
 			slide.appendChild(arr[0]);
@@ -26,10 +28,12 @@ function playMusic() {
 }
 
 document.querySelector('button').addEventListener('click', getFetch);
+document.querySelector('input').addEventListener('keydown', (e) => { //ici je veux pouvoir appuyer sur 'Entrer' pour call la fonction getFetch, ca marche mais la page scroll vers le haut en meme temps
+	(e.key === 'Enter') && getFetch()
+})
 
 function getFetch() {
 	const input = document.querySelector('input').value;
-	console.log(input);
 	const url = `https://www.breakingbadapi.com/api/characters?name=${input}`;
 
 	resetDOM();
@@ -84,6 +88,8 @@ function addToDOM(character) {
 
 function resetDOM() {
 	const info = document.querySelector('#details-container');
+	document.querySelector('input').value = '' 
+	//this line of code removes what was entered in the search bar
 
 	while (info.firstChild) {
 		info.removeChild(info.firstChild);
